@@ -1,0 +1,22 @@
+import naves.*
+
+describe "Test de naves espaciales" {
+
+  const navePasa = new NaveDePasajeros(velocidad=0,direccion=0,combustible=1000,pasajeros=500,comida=1200,bebida=2500)
+  const naveBaliza = new NaveBaliza(velocidad=0,direccion=0,combustible=500)
+  const naveComb = new NaveDeCombate(velocidad=0,direccion=0,combustible=1200)
+  const naveSig = new NaveSigilosa(velocidad=0,direccion=0,combustible=1200)
+  const naveHosp = new NaveHospital(velocidad=0,direccion=0,combustible=1000,pasajeros=500,comida=1200,bebida=2500)
+
+  method initialize() {
+    naveBaliza.prepararViaje()
+    navePasa.prepararViaje()
+    naveComb.prepararViaje()
+    naveSig.prepararViaje()
+    naveHosp.prepararViaje()
+  }
+  test "Test 1" {
+    assert.equals(100, 50+50)
+  }
+
+}
