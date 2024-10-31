@@ -3,6 +3,9 @@ class Nave {
   var direccion
   var combustible
 
+  method velocidad() = velocidad
+  method direccion() = direccion
+  method combustible() = combustible
   method initialize() {
     if (!velocidad.between(0, 100000) ||
       !direccion.between(-10,10)) 
@@ -14,7 +17,7 @@ class Nave {
   }
 
   method desCargarCombustible(cuanto) {
-    combustible = 0.max(combustible -cuanto)
+    combustible = 0.max(combustible - cuanto)
   }
 
 

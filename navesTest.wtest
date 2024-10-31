@@ -2,21 +2,51 @@ import naves.*
 
 describe "Test de naves espaciales" {
 
-  const navePasa = new NaveDePasajeros(velocidad=0,direccion=0,combustible=1000,pasajeros=500,comida=1200,bebida=2500)
-  const naveBaliza = new NaveBaliza(velocidad=0,direccion=0,combustible=500)
-  const naveComb = new NaveDeCombate(velocidad=0,direccion=0,combustible=1200)
-  const naveSig = new NaveSigilosa(velocidad=0,direccion=0,combustible=1200)
-  const naveHosp = new NaveHospital(velocidad=0,direccion=0,combustible=1000,pasajeros=500,comida=1200,bebida=2500)
+  const navePasa = new NaveDePasajeros(velocidad=0,direccion=0,combustible=0,pasajeros=1000,comida=0,bebida=0)
+  const naveBaliza = new NaveBaliza(velocidad=0,direccion=0,combustible=0)
+  const naveComb = new NaveDeCombate(velocidad=0,direccion=0,combustible=0)
+  const naveSig = new NaveSigilosa(velocidad=0,direccion=0,combustible=0)
+  const naveHosp = new NaveHospital(velocidad=0,direccion=0,combustible=0,pasajeros=250,comida=0,bebida=0)
 
   method initialize() {
-    naveBaliza.prepararViaje()
+    //naveBaliza.prepararViaje()
     navePasa.prepararViaje()
     naveComb.prepararViaje()
     naveSig.prepararViaje()
     naveHosp.prepararViaje()
   }
-  test "Test 1" {
-    assert.equals(100, 50+50)
+  test "La nave de combate intenta acelerar al palo, le manda 90000 (a los 15000 que tenía al preparar) y queda en 100000" {
+    naveComb.acelerar(90000)
+    assert.equals(100000, naveComb.velocidad())
   }
+
+  
+  test "La nave de pasajeros y la nave hospital están tranquilas" {
+    assert.that(navePasa.estaTranquila())
+    assert.that(naveHosp.estaTranquila())
+  }
+
+  test "La nave de pasajeros sigue tranquila si recibe una amenaza pero la hospital no" {
+    navePasa.recibirAmenaza()
+    naveHosp.recibirAmenaza()
+    assert.that(navePasa.estaTranquila())
+    assert.notThat(naveHosp.estaTranquila())
+  }
+
+  test "La nave de combate sigilosa está de relajo" {
+    naveSig.desacelerar(12000) // desacelera para estar tranquila
+    assert.that(naveSig.estaDeRelajo())
+  }
+
+  test "La nave Baliza está de relajo al inicio con 5000 de combustible" {
+    naveBaliza.cargarCombustible(5000)
+    assert.that(naveBaliza.estaDeRelajo())
+  }
+
+  test "La nave Baliza ya no está de relajo al preparar el viaje" {
+    naveBaliza.prepararViaje()
+    assert.notThat(naveBaliza.estaDeRelajo())
+  }
+
 
 }
